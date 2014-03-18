@@ -21,11 +21,14 @@ import javax.swing.JTextField;
  * @author dizoo548
  */
 public class Flasher extends javax.swing.JFrame {
-    Timer timer;
+    private Timer timer;
+    private int speed;
+    private boolean flash;
     /**
      * Creates new form TextFlasher
      */
     public Flasher() {
+        this.speed = 10;
         initComponents();
         init();
     }
@@ -39,6 +42,7 @@ public class Flasher extends javax.swing.JFrame {
         backgroundColorButton.setOpaque(true);
         changeTextButton.setOpaque(true);
         textLabel.setOpaque(true);
+        flash = false;
         try {
             Font nineTeenFortyTwo = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/resources/fonts/1942.ttf"));
             nineTeenFortyTwo = nineTeenFortyTwo.deriveFont(Font.BOLD, 48f);
@@ -65,7 +69,9 @@ public class Flasher extends javax.swing.JFrame {
            return newColor;
     }   
     
-    private void flash(){        
+    private void flash(){
+        
+        
         
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -76,7 +82,7 @@ public class Flasher extends javax.swing.JFrame {
                 textLabel.setBackground(getOriginalColor());
                 textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
             }
-        }, 500, 10);      
+        }, 500, speed);      
         
     }
     
@@ -93,6 +99,8 @@ public class Flasher extends javax.swing.JFrame {
         backgroundColorButton = new javax.swing.JLabel();
         flashButton = new javax.swing.JButton();
         changeTextButton = new javax.swing.JLabel();
+        speedSlider = new javax.swing.JSlider();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,32 +137,58 @@ public class Flasher extends javax.swing.JFrame {
             }
         });
 
+        speedSlider.setMajorTickSpacing(100);
+        speedSlider.setMaximum(500);
+        speedSlider.setMinimum(50);
+        speedSlider.setMinorTickSpacing(50);
+        speedSlider.setPaintLabels(true);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setSnapToTicks(true);
+        speedSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                speedSliderStateChanged(evt);
+            }
+        });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setLabelFor(speedSlider);
+        jLabel1.setText("Speed");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backgroundColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(changeTextButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(167, 167, 167)
+                .addComponent(flashButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(flashButton)
-                .addGap(169, 169, 169))
+                .addComponent(jLabel1)
+                .addGap(182, 182, 182))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(backgroundColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(changeTextButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(textLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addComponent(backgroundColorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(changeTextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(11, 11, 11)
+                .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(flashButton)
                 .addContainerGap())
         );
@@ -176,9 +210,11 @@ public class Flasher extends javax.swing.JFrame {
         if(flashButton.getText().equalsIgnoreCase("Flash")){
             flash();
             flashButton.setText("STOP!");
+            flash = true;
         }else{
             timer.cancel();
             flashButton.setText("Flash");
+            flash = false;
         }
         
         
@@ -205,6 +241,14 @@ public class Flasher extends javax.swing.JFrame {
             //x.printStackTrace();
         }
     }//GEN-LAST:event_changeTextButtonMousePressed
+
+    private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
+        speed = speedSlider.getValue();
+        if(flash){
+           timer.cancel();
+           flash();
+        }
+    }//GEN-LAST:event_speedSliderStateChanged
 
     /**
      * @param args the command line arguments
@@ -245,6 +289,8 @@ public class Flasher extends javax.swing.JFrame {
     private javax.swing.JLabel backgroundColorButton;
     private javax.swing.JLabel changeTextButton;
     private javax.swing.JButton flashButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSlider speedSlider;
     private javax.swing.JLabel textLabel;
     // End of variables declaration//GEN-END:variables
 }
