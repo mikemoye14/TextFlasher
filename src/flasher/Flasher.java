@@ -6,20 +6,18 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
+ * CMPSC 221 
+ * 
+ * Text Flasher 
+ * flasher.java 
+ * Purpose: run the text flasher application
+ * 
+ * @author Mike Moye
+ * @version 2.0 18 March 2014
  *
- * @author dizoo548
  */
 public class Flasher extends javax.swing.JFrame {
     private Timer timer;
