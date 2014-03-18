@@ -1,6 +1,7 @@
 package flasher;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.util.Timer;
@@ -24,6 +25,7 @@ public class Flasher extends javax.swing.JFrame {
     private Timer timer;
     private int speed;
     private boolean flash;
+    
     /**
      * Creates new form TextFlasher
      */
@@ -34,7 +36,7 @@ public class Flasher extends javax.swing.JFrame {
     }
     
     /**
-     * Method init initializes frame
+     * Method init() initializes frame, sets font
      */
     private void init() {
         this.setLocationRelativeTo(null);
@@ -50,29 +52,34 @@ public class Flasher extends javax.swing.JFrame {
         } catch (Exception x) {
             //x.printStackTrace();
         }
-
     }
     
-    private Color getOriginalColor(){
-        
+    /**
+     * Method getOriginalColor() gets the original background of the flash area
+     * @return balColor background color
+     */
+    private Color getOriginalColor(){        
         Color bakColor = textLabel.getBackground();
         return bakColor;
     }
     
-    private Color getComplemtaryColor(Color color){
-        
+    /**
+     * Method getComplemtaryColor() get the complementary color of a given color
+     * @param color color
+     * @return complemented color
+     */
+    private Color getComplemtaryColor(Color color){        
            Color newColor = new Color(255-color.getRed(),
                                       255-color.getGreen(),
                                       255-color.getBlue()
-                                      );
-           
-           return newColor;
+                                      );           
+           return newColor;    
     }   
     
+    /**
+     * Method flash() flashes text
+     */
     private void flash(){
-        
-        
-        
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -82,8 +89,7 @@ public class Flasher extends javax.swing.JFrame {
                 textLabel.setBackground(getOriginalColor());
                 textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
             }
-        }, 500, speed);      
-        
+        }, 500, speed);
     }
     
     /**
@@ -115,6 +121,12 @@ public class Flasher extends javax.swing.JFrame {
         backgroundColorButton.setText("Background Color");
         backgroundColorButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         backgroundColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backgroundColorButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backgroundColorButtonMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 backgroundColorButtonMousePressed(evt);
             }
@@ -122,6 +134,12 @@ public class Flasher extends javax.swing.JFrame {
 
         flashButton.setText("Flash");
         flashButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                flashButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                flashButtonMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 flashButtonMousePressed(evt);
             }
@@ -132,6 +150,12 @@ public class Flasher extends javax.swing.JFrame {
         changeTextButton.setText("Change Text");
         changeTextButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         changeTextButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                changeTextButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                changeTextButtonMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 changeTextButtonMousePressed(evt);
             }
@@ -150,6 +174,7 @@ public class Flasher extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setLabelFor(speedSlider);
         jLabel1.setText("Speed");
@@ -158,44 +183,47 @@ public class Flasher extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(167, 167, 167)
-                .addComponent(flashButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(182, 182, 182))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(textLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(backgroundColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(changeTextButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(flashButton)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
                 .addComponent(textLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(backgroundColorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(changeTextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(11, 11, 11)
+                .addGap(5, 5, 5)
                 .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(50, 50, 50)
                 .addComponent(flashButton)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Method backgroundColorButtonMousePressed() shows background color prompt
+     * @param evt click bagroundColorButton
+     */
     private void backgroundColorButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundColorButtonMousePressed
         try {
             Color color = JColorChooser.showDialog(this, "Backgroud Color", Color.PINK);
@@ -205,7 +233,11 @@ public class Flasher extends javax.swing.JFrame {
             //x.printStackTrace();
         }
     }//GEN-LAST:event_backgroundColorButtonMousePressed
-
+    
+    /**
+     * Method flashButtonMousePressed()start or stop flashing text
+     * @param evt 
+     */
     private void flashButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flashButtonMousePressed
         if(flashButton.getText().equalsIgnoreCase("Flash")){
             flash();
@@ -216,10 +248,12 @@ public class Flasher extends javax.swing.JFrame {
             flashButton.setText("Flash");
             flash = false;
         }
-        
-        
     }//GEN-LAST:event_flashButtonMousePressed
-
+    
+    /**
+     * Method changeTextButtonMousePressed() shows change text prompt
+     * @param evt click change text button
+     */
     private void changeTextButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeTextButtonMousePressed
             try{
             java.net.URL imgURL = getClass().getResource("/resources/images/letters.png");
@@ -241,7 +275,11 @@ public class Flasher extends javax.swing.JFrame {
             //x.printStackTrace();
         }
     }//GEN-LAST:event_changeTextButtonMousePressed
-
+    
+    /**
+     * Method speedSliderStateChanged() changes flash speed
+     * @param evt move speed slider
+     */
     private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
         speed = speedSlider.getValue();
         if(flash){
@@ -249,6 +287,52 @@ public class Flasher extends javax.swing.JFrame {
            flash();
         }
     }//GEN-LAST:event_speedSliderStateChanged
+    
+    /**
+     * Method backgroundColorButtonMouseEntered() mouse pointer
+     * @param evt mouse over background button
+     */
+    private void backgroundColorButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundColorButtonMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_backgroundColorButtonMouseEntered
+    
+    /**
+     * Method backgroundColorButtonMouseExited() mouse pointer
+     * @param evt mouse out background button
+     */
+    private void backgroundColorButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundColorButtonMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_backgroundColorButtonMouseExited
+    /**
+     * Method changeTextButtonMouseEntered 
+     * @param evt 
+     */
+    private void changeTextButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeTextButtonMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_changeTextButtonMouseEntered
+    /**
+     * 
+     * @param evt 
+     */
+    private void changeTextButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeTextButtonMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_changeTextButtonMouseExited
+    
+    /**
+     * 
+     * @param evt 
+     */
+    private void flashButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flashButtonMouseEntered
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_flashButtonMouseEntered
+    
+    /**
+     * 
+     * @param evt 
+     */
+    private void flashButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_flashButtonMouseExited
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_flashButtonMouseExited
 
     /**
      * @param args the command line arguments
