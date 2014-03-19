@@ -28,7 +28,7 @@ public class Flasher extends javax.swing.JFrame {
      * Creates new form TextFlasher
      */
     public Flasher() {
-        this.speed = 10;
+        this.speed = 100;
         initComponents();
         init();
     }
@@ -105,6 +105,8 @@ public class Flasher extends javax.swing.JFrame {
         changeTextButton = new javax.swing.JLabel();
         speedSlider = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,6 +179,12 @@ public class Flasher extends javax.swing.JFrame {
         jLabel1.setLabelFor(speedSlider);
         jLabel1.setText("Speed");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("<html>&larr; FASTER</html>");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("<html>SLOWER &rarr;</html>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,6 +196,10 @@ public class Flasher extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(flashButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(speedSlider, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
                     .addComponent(textLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -208,7 +220,11 @@ public class Flasher extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(5, 5, 5)
                 .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addComponent(flashButton)
                 .addGap(50, 50, 50))
         );
@@ -242,6 +258,8 @@ public class Flasher extends javax.swing.JFrame {
             timer.cancel();
             flashButton.setText("Flash");
             flash = false;
+            textLabel.setBackground(getOriginalColor());
+            textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
         }
     }//GEN-LAST:event_flashButtonMousePressed
     
@@ -276,7 +294,7 @@ public class Flasher extends javax.swing.JFrame {
      * @param evt move speed slider
      */
     private void speedSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_speedSliderStateChanged
-        speed = speedSlider.getValue();
+        speed = speedSlider.getValue();               
         if(flash){
            timer.cancel();
            flash();
@@ -369,6 +387,8 @@ public class Flasher extends javax.swing.JFrame {
     private javax.swing.JLabel changeTextButton;
     private javax.swing.JButton flashButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSlider speedSlider;
     private javax.swing.JLabel textLabel;
     // End of variables declaration//GEN-END:variables
