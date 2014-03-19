@@ -44,6 +44,7 @@ public class Flasher extends javax.swing.JFrame {
         changeTextButton.setOpaque(true);
         textLabel.setOpaque(true);
         flash = false;
+        speedSlider.setValue(100);
         try {
             Font nineTeenFortyTwo = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/resources/fonts/1942.ttf"));
             nineTeenFortyTwo = nineTeenFortyTwo.deriveFont(Font.BOLD, 48f);
