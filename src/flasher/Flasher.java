@@ -10,7 +10,8 @@ import javax.swing.*;
 
 /**
  * CMPSC 221 
- * 
+ * GUI Assignments
+ * Program 24.7
  * Text Flasher 
  * flasher.java 
  * Purpose: run the text flasher application
@@ -87,7 +88,7 @@ public class Flasher extends javax.swing.JFrame {
                 textLabel.setBackground(getOriginalColor());
                 textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
             }
-        }, 500, speed);
+        }, 100, speed);
     }
     
     /**
@@ -237,7 +238,7 @@ public class Flasher extends javax.swing.JFrame {
      */
     private void backgroundColorButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundColorButtonMousePressed
         try {
-            Color color = JColorChooser.showDialog(this, "Backgroud Color", Color.PINK);
+            Color color = JColorChooser.showDialog(this, "Background Color", Color.PINK);
             this.textLabel.setBackground(new Color(color.getRGB()));
             textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
         } catch (HeadlessException | NullPointerException x) {
@@ -258,8 +259,6 @@ public class Flasher extends javax.swing.JFrame {
             timer.cancel();
             flashButton.setText("Flash");
             flash = false;
-            textLabel.setBackground(getOriginalColor());
-            textLabel.setForeground(getComplemtaryColor(textLabel.getBackground()));
         }
     }//GEN-LAST:event_flashButtonMousePressed
     
