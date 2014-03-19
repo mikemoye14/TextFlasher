@@ -16,7 +16,7 @@ import javax.swing.*;
  * flasher.java 
  * Purpose: run the text flasher application
  * 
- * @author Mike Moye
+ * @author Mike Moye <mtm5313@psu.edu>
  * @version 2.0 18 March 2014
  *
  */
